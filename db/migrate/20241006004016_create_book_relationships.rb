@@ -6,5 +6,7 @@ class CreateBookRelationships < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+    # 同じタグは2回保存できない
+    add_index :book_relationships,[:book_id,:tag_id],unique: true 
   end
 end
