@@ -21,4 +21,9 @@ class Book < ApplicationRecord
       User.where('title LIKE ?','%' + word + '%')
     end
   end  
+  
+  scope :latest, -> { order(created_at: :desc) }  #desc = 降順
+scope :old, -> { order(created_at: :asc) }  #asc = 昇順
+scope :most_favorited, -> { includes(:favorites)
+  .sort_by { |x| x.favorites.includes(:favorites).size }.reverse }
 end
